@@ -11,8 +11,7 @@ const AddPlant = () => {
   const axiosSecure = useAxiosSecure();
   // upload button 
   const [uploadImage , setUploadImage] = useState({image :{ name: "Upload Image"}});
-  const [loading , setLoading] = useState(false)
-  console.log(uploadImage);
+  const [loading , setLoading] = useState(false);
   //
   const handleAdd = async (e) => {
     setLoading(true)
