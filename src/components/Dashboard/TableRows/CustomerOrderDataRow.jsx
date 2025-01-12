@@ -20,9 +20,10 @@ const {_id,plantImage,plantCategory,plantName,price,quantity,status , productId}
       // update quantity to plant collection
       await axiosSecure.patch(`/plants/quantity/${productId}`, { quantityToUpdate:quantity , status:'increase'});
       refetch();
-      toast.success("order-cancled");
+      toast.success("Order cancled");
     } catch (err) {
       console.log(err);
+       toast.error(err?.response?.data)
     } finally {
       closeModal();
     }
@@ -62,7 +63,6 @@ const {_id,plantImage,plantCategory,plantName,price,quantity,status , productId}
 
       <td className='px-5 py-5 border-b border-gray-200 bg-white text-sm'>
         <button
-           disabled={status=== 'delivered'? true : false}
           onClick={() => setIsOpen(true)}
           className='relative disabled:cursor-not-allowed cursor-pointer inline-block px-3 py-1 font-semibold text-lime-900 leading-tight'
         >

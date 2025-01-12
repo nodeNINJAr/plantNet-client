@@ -3,6 +3,7 @@ import { FaUserAlt, FaDollarSign } from 'react-icons/fa'
 import { BsFillCartPlusFill, BsFillHouseDoorFill } from 'react-icons/bs'
 
 const AdminStatistics = () => {
+// 
   return (
     <div>
       <div className='mt-12'>

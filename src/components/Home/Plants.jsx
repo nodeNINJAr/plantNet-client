@@ -7,7 +7,6 @@ import LoadingSpinner from '../Shared/LoadingSpinner'
 
 // 
 const Plants = () => {
- console.log(import.meta.env.VITE_API_URL);
   // Queries
   const {data:plants , isLoading} = useQuery({ queryKey: ['plants'], queryFn: async ()=>{
      const {data} = await axios.get(`${import.meta.env.VITE_API_URL}/plants`)
