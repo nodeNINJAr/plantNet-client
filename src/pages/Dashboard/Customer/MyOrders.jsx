@@ -12,7 +12,7 @@ const MyOrders = () => {
   const axiosSecure = useAxiosSecure();
   //
   const {
-    data: orders = [],
+    data:orders = [],
     isLoading,
     refetch,
   } = useQuery({

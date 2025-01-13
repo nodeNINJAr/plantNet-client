@@ -22,7 +22,6 @@ const {_id,plantImage,plantCategory,plantName,price,quantity,status , productId}
       refetch();
       toast.success("Order cancled");
     } catch (err) {
-      console.log(err);
        toast.error(err?.response?.data)
     } finally {
       closeModal();
