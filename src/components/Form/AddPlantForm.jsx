@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 import { TbFidgetSpinner } from "react-icons/tb";
+import { shortenImageName } from "../../utilitis";
 
 const AddPlantForm = ({ handleAdd, uploadImage, setUploadImage, loading }) => {
   //
@@ -102,7 +103,8 @@ const AddPlantForm = ({ handleAdd, uploadImage, setUploadImage, loading }) => {
                       onChange={(e) => setUploadImage({image: e.target.files[0] , url: URL.createObjectURL(e.target.files[0])})}
                     />
                     <div className="bg-lime-500 text-white border border-gray-300 rounded font-semibold cursor-pointer p-1 px-3 hover:bg-lime-500">
-                      {uploadImage?.image?.name}
+                      {/* {uploadImage?.image?.name} */}
+                     { shortenImageName(uploadImage?.image,15)}
                     </div>
                   </label>
                 </div>

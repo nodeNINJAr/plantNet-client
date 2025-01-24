@@ -12,7 +12,7 @@ const MyInventory = () => {
       return data;
     },
   });
-  console.log(plants);
+ 
   //
   return (
     <>
