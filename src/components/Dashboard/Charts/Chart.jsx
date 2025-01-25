@@ -1,8 +1,8 @@
 import React from "react";
+import PropTypes from 'prop-types';
 import { Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ComposedChart, Area, Bar } from 'recharts';
 
 const Chart = ({chartData}) => {
-  console.log(chartData);
     const data = [
         {
           "date": chartData?.date,
@@ -30,5 +30,14 @@ const Chart = ({chartData}) => {
     </div>
   );
 };
+Chart.propTypes = {
+  chartData: PropTypes.shape({
+    date: PropTypes.string,
+    quantity: PropTypes.number,
+    price: PropTypes.number,
+    order: PropTypes.number,
+  }).isRequired,
+};
 
 export default Chart;
+

@@ -25,7 +25,7 @@ const [role] = useRole();
         return data
      }
   })
-  const {_id,category, description, image,name,price, quantity,seller} = plant ||{}
+  const {category, description, image,name,price, quantity,seller} = plant ||{}
 
   // 
   const closeModal = () => {

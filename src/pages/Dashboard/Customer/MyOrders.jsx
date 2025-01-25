@@ -26,7 +26,6 @@ const MyOrders = () => {
   if (isLoading) {
     return <LoadingSpinner />;
   }
-
   //
   return (
     <>
