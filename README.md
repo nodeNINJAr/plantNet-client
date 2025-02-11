@@ -64,7 +64,7 @@ Welcome to **PlantNet**, an eCommerce platform designed for plant lovers! With P
 
 1. **Clone the repository**
    ```sh
-   git clone https://github.com/yourusername/plantnet.git
+   git clone https://github.com/nodeNINJAr/plantNet-client
    cd plantnet
    ```
 
