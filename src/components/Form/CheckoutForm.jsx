@@ -15,6 +15,7 @@ const CheckoutForm = ({ refetch, closeModal, purchased , totalQuantity}) => {
   const axiosSecure = useAxiosSecure();
   //
   const [clientSecret, setClientSecret] = useState('');
+  const [processing,setProcessing] = useState(false)
   //
   useEffect(() => {
     getPaymentIntent();
@@ -29,11 +30,12 @@ const CheckoutForm = ({ refetch, closeModal, purchased , totalQuantity}) => {
       });
       setClientSecret(data?.client_secret);
     } catch (err) {
-      console.log(err);
+      // console.log(err);
     } 
   };
 
   const handleSubmit = async (event) => {
+    setProcessing(true)
     // Block native form submission.
     event.preventDefault();
 
@@ -49,20 +51,10 @@ const CheckoutForm = ({ refetch, closeModal, purchased , totalQuantity}) => {
     const card = elements.getElement(CardElement);
 
     if (card == null) {
+      setProcessing(true)
       return;
     }
 
-    // Use your card Element with other Stripe.js APIs
-    // const { error, paymentMethod } = await stripe.createPaymentMethod({
-    //   type: "card",
-    //   card,
-    // });
-
-    // if (error) {
-    //   console.log("[error]", error);
-    // } else {
-    //   console.log("[PaymentMethod]", paymentMethod);
-    // }
     // Use your card Element with other Stripe.js APIs
     const { error, paymentMethod } = await stripe.createPaymentMethod({
       type: "card",
@@ -70,7 +62,8 @@ const CheckoutForm = ({ refetch, closeModal, purchased , totalQuantity}) => {
     });
 
     if (error) {
-      console.log("[error]", error);
+      setProcessing(true)
+     return console.log("[error]", error);
     } else {
       console.log("[PaymentMethod]", paymentMethod);
     }
@@ -85,12 +78,13 @@ const CheckoutForm = ({ refetch, closeModal, purchased , totalQuantity}) => {
         },
       },
     });
-    console.log(paymentIntent);
+  // 
    if(paymentIntent?.status === "succeeded"){
          try {
              await axiosSecure.post('/order', {...purchased, transactionId:paymentIntent?.id});
              // update quantity to plant collection
-             await axiosSecure.patch(`/plants/quantity/${purchased?.productId}`, {quantityToUpdate:totalQuantity, status : 'decrease'} )
+             await axiosSecure.patch(`/plants/quantity/${purchased?.productId}`, {quantityToUpdate:totalQuantity, status : 'decrease'} );
+             setProcessing(true)
              toast.success("Plant Purchased");
              refetch();
              navigate('/dashboard/my-orders')
@@ -127,7 +121,7 @@ const CheckoutForm = ({ refetch, closeModal, purchased , totalQuantity}) => {
       <div className="flex justify-between gap-2">
         <Button
           type="submit"
-          disabled={!stripe}
+          disabled={!stripe || !clientSecret || processing}
           label={`Pay ${purchased?.price} $`}
         ></Button>
         <Button outline={true} onClick={closeModal} label={"Cancle"}></Button>
@@ -136,6 +130,7 @@ const CheckoutForm = ({ refetch, closeModal, purchased , totalQuantity}) => {
   );
 };
 CheckoutForm.propTypes = {
+  totalQuantity: PropTypes.number.isRequired,
   refetch: PropTypes.func.isRequired,
   closeModal: PropTypes.func.isRequired,
   purchased: PropTypes.shape({

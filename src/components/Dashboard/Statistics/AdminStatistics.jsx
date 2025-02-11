@@ -18,6 +18,7 @@ const {data:adminStats={}, isLoading} = useQuery({
    }
 })
 
+console.log(adminStats);
 // 
 if(isLoading) return <LoadingSpinner/>
 
